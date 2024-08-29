@@ -6,8 +6,8 @@ from random import randint
 
 pygame.init()
 pygame.font.init()
-myFont = pygame.font.SysFont('Comic Sans MS', 30)
-fpsClock = pygame.time.Clock()
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
+fps_clock = pygame.time.Clock()
 FPS = 60
 SCREENWIDTH = 854
 SCREENHEIGHT = 480
@@ -19,12 +19,12 @@ pygame.display.set_caption(GAMENAME)
 
 class Scoreboard:
     def __init__(self):
-        self.leftPlayerScore = 0
-        self.rightPlayerScore = 0
+        self.left_player_score = 0
+        self.right_player_score = 0
 
 scoreboard = Scoreboard()
-leftPaddle = Paddle(screen, positionY=(SCREENHEIGHT/2-25), positionX=20)
-rightPaddle = Paddle(screen, positionY=(SCREENHEIGHT/2-25), positionX=SCREENWIDTH-20)
+left_paddle = Paddle(screen, positionY=(SCREENHEIGHT/2-25), positionX=20)
+right_paddle = Paddle(screen, positionY=(SCREENHEIGHT/2-25), positionX=SCREENWIDTH-20)
 ball = Ball(screen, scoreboard, SCREENWIDTH/2, SCREENHEIGHT/2,pygame.Vector2(randint(1,10),randint(1,10)))
 
 
@@ -38,24 +38,24 @@ def gameloop():
                 sys.exit()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_s]:
-            leftPaddle.moveDown()
+            left_paddle.moveDown()
         if keys[pygame.K_w]:
-            leftPaddle.moveUp()
+            left_paddle.moveUp()
         if keys[pygame.K_o]:
-            rightPaddle.moveUp()
+            right_paddle.moveUp()
         if keys[pygame.K_l]:
-            rightPaddle.moveDown()
-        ball.move([leftPaddle.getRect(), rightPaddle.getRect()])
-        leftPlayerScore = myFont.render(f"{scoreboard.leftPlayerScore}", False, (255,255,255))
-        rightPlayerScore = myFont.render(f"{scoreboard.rightPlayerScore}", False, (255,255,255))
+            right_paddle.moveDown()
+        ball.move([left_paddle.getRect(), right_paddle.getRect()])
+        left_player_score = my_font.render(f"{scoreboard.left_player_score}", False, (255,255,255))
+        right_player_score = my_font.render(f"{scoreboard.right_player_score}", False, (255,255,255))
         screen.fill(0)
-        leftPaddle.draw()
-        rightPaddle.draw()
+        left_paddle.draw()
+        right_paddle.draw()
         ball.draw()
-        screen.blit(leftPlayerScore, (int(SCREENWIDTH/4), 40))
-        screen.blit(rightPlayerScore, (int(3*SCREENWIDTH/4), 40))
+        screen.blit(left_player_score, (int(SCREENWIDTH/4), 40))
+        screen.blit(right_player_score, (int(3*SCREENWIDTH/4), 40))
         pygame.display.update()
-        fpsClock.tick(FPS)
+        fps_clock.tick(FPS)
 
 if __name__ == "__main__":
     gameloop()
